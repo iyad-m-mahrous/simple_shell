@@ -38,6 +38,8 @@ int main(int argc, char *argv[])
 			printf("%s: %d: %s: not found\n", argv[0], ++err_count, args[0]);
 			free(line);
 			line = NULL;
+			if (!is_atty)
+				return (0);
 			continue;			
 		}
 		for (i = 1; i < 10; i++)
