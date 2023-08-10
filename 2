@@ -13,10 +13,11 @@
 
 int main(int argc, char *argv[], char *env[])
 {
-	char *line = NULL, *args[10];
+	char *line = NULL, *args[10], **env_var = NULL;
 	int i, pid = -1, is_exit = 1, is_atty, err_count = 0;
 	size_t len = 0;
 	ssize_t line_len;
+	extern char **environ;
 
 	is_atty = isatty(0);
 	(void) argc;
@@ -32,6 +33,13 @@ int main(int argc, char *argv[], char *env[])
 		}
 		if (strcmp(line, "env\n") == 0)
 		{
+			env_var = environ;
+			while (*env_var)
+			{
+				printf("%s\n", *env_var);
+				env_var++;
+			}
+			printf("Helloeeeeeeeee\n");
 			while (*env)
 			{
 				printf("%s\n", *env);
@@ -46,8 +54,7 @@ int main(int argc, char *argv[], char *env[])
 		args[0] = strtok(line, " ");
 		if (access(args[0], X_OK) == -1)
 		{
-			if (args[0])
-				printf("%s: %d: %s: not found\n", argv[0], ++err_count, args[0]);
+			printf("%s: %d: %s: not found\n", argv[0], ++err_count, args[0]);
 			free(line);
 			line = NULL;
 			continue;			
