@@ -32,6 +32,13 @@ int main(void)
 		if (line[line_len - 1] == '\n')
 			line[line_len - 1] = '\0';
 		args[0] = strtok(line, " ");
+		if (access(args[0], X_OK) == -1)
+		{
+			printf("%s: Not Found\n", args[0]);
+			free(line);
+			line = NULL;
+			continue;			
+		}
 		for (i = 1; i < 10; i++)
 		{
 			args[i] = strtok(NULL, " ");
