@@ -13,10 +13,11 @@
 
 int main(int argc, char *argv[])
 {
-	char *line = NULL, *args[10];
+	char *line = NULL, *args[10], **env = NULL;
 	int i, pid = -1, is_exit = 1, is_atty, err_count = 0;
 	size_t len = 0;
 	ssize_t line_len;
+	extern char **environ;
 
 	is_atty = isatty(0);
 	(void) argc;
@@ -29,6 +30,18 @@ int main(int argc, char *argv[])
 		{
 			free(line);
 			break;
+		}
+		if (strcmp(line, "env\n") == 0)
+		{
+			env = environ;
+			while (*env)
+			{
+				printf("%s\n", *env);
+				env++;
+			}
+			free(line);
+			line = NULL;
+			continue;
 		}
 		if (line[line_len - 1] == '\n')
 			line[line_len - 1] = '\0';
