@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 
 /**
@@ -44,7 +45,7 @@ int main(int argc, char *argv[], char *env[])
 		if (line[line_len - 1] == '\n')
 			line[line_len - 1] = '\0';
 		args[0] = strtok(line, " ");
-		if (access(args[0], X_OK) == -1)
+		if (access(args[0], F_OK) == -1)
 		{
 			if (args[0])
 				printf("%s: %d: %s: not found\n", argv[0], ++err_count, args[0]);
@@ -62,9 +63,11 @@ int main(int argc, char *argv[], char *env[])
 		pid = fork();
 		if (pid == 0)
 		{
-			execve(args[0], args, NULL);
+			if(execve(args[0], args, NULL) == -1)
+				perror("execve");
 			free(line);
 			line = NULL;
+			exit(EXIT_FAILURE);
 		}
 		else
 			wait(NULL);
