@@ -39,8 +39,6 @@ int main(int argc, char *argv[], char *env[])
 				printf("%s\n", *env);
 				env++;
 			}
-			free(line);
-			line = NULL;
 			continue;
 		}
 		if (line[line_len - 1] == '\n')
@@ -50,8 +48,6 @@ int main(int argc, char *argv[], char *env[])
 		{
 			if (args[0])
 				printf("%s: %d: %s: not found\n", argv[0], ++err_count, args[0]);
-			free(line);
-			line = NULL;
 			continue;			
 		}
 
@@ -67,7 +63,6 @@ int main(int argc, char *argv[], char *env[])
 			if(execve(args[0], args, NULL) == -1)
 				perror("execve");
 			free(line);
-			line = NULL;
 			exit(EXIT_FAILURE);
 		}
 		else
