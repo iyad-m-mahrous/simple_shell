@@ -7,7 +7,7 @@
 
 
 /**
- * main - Simple Sell Task
+ * main - Simple Shell Task
  *
  * Return: -1 if error else 0
 */
@@ -15,7 +15,7 @@
 int main(int argc, char *argv[], char *env[])
 {
 	char *line = NULL, *args[10];
-	int i, pid = -1, is_exit = 1, is_atty, err_count = 0;
+	int i, pid = -1, is_exit = 0, is_atty, err_count = 0;
 	size_t len = 0;
 	ssize_t line_len;
 
@@ -26,7 +26,8 @@ int main(int argc, char *argv[], char *env[])
 		if (is_atty)
 			printf("($) ");
 		line_len = getline(&line, &len, stdin);
-		if (line_len == -1 || (is_exit = strcmp(line,"exit\n")) == 0)
+		is_exit = !strcmp(line,"exit\n");
+		if (line_len == -1 || is_exit)
 		{
 			free(line);
 			break;
@@ -72,7 +73,7 @@ int main(int argc, char *argv[], char *env[])
 		else
 			wait(NULL);
 	}
-	if (is_exit != 0 && is_atty)
+	if (!is_exit && is_atty)
 		printf("\n");
 	return (0);
 }
