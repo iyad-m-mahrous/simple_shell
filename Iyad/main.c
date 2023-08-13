@@ -25,7 +25,7 @@ int main(int argc, char *argv[], char *env[])
 		line_len = _getline(&line, &len, stdin);
 		if (line_len == -1)
 			break;
-		if (!strcmp(line, "exit\n"))
+		if (strcmp(line, "exit\n") == 0)
 		{
 			free(line);
 			exit(EXIT_SUCCESS);

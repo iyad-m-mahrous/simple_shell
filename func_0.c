@@ -24,10 +24,14 @@ char *get_full_path(char *command)
 		strcat(full_path, "/");
 		strcat(full_path, command);
 		if (access(full_path, X_OK) == 0)
+		{
+			free(temp);
 			return (strdup(full_path));
+		}
 		token = strtok_r(NULL, ":", &saveptr);
 		full_path[0] = '\0';
 	}
+	free(temp);
 	return (NULL);
 
 }
@@ -89,8 +93,6 @@ void run_command(char *line, size_t line_len, char *argv[])
 		printf("%s: %d: %s: not found\n", argv[0], ++err_count, args[0]);
 		return;
 	}
-
-
 	for (i = 1; i < 10; i++)
 	{
 		args[i] = strtok_r(NULL, " ", &saveptr);
@@ -102,9 +104,13 @@ void run_command(char *line, size_t line_len, char *argv[])
 	{
 		if (execve(full_path ? full_path : args[0], args, NULL) == -1)
 			perror("execve");
-		free(line);
+		if(*line)
+			free(line);
+		if(*full_path)
+			free(full_path);
 		exit(EXIT_FAILURE);
 	}
 	else
 		wait(NULL);
+	free(full_path);
 }
