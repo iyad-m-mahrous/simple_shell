@@ -35,7 +35,7 @@ int main(int argc, char *argv[], char *env[])
 			print_env(env);
 			continue;
 		}
-		run_command(line, line_len, argv, env);
+		run_command(line, line_len, argv);
 	}
 	free(line);
 	if (is_atty)
