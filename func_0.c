@@ -35,11 +35,12 @@ void print_env(char *env[])
  * run_command - Reads bthe input from user and execute if valid command
  * @line: user input string
  * @line_len: length of the user input string
- * @command_name: the calling function
+ * @argv: passing argv from main
+ * @env: passing env from main
  *
  * Return: Nothing
 */
-void run_command(char *line, size_t line_len, char *command_name)
+void run_command(char *line, size_t line_len, char *argv[], char *env[])
 {
 	char *args[10];
 	int i;
@@ -52,7 +53,7 @@ void run_command(char *line, size_t line_len, char *command_name)
 	if (access(args[0], F_OK) == -1)
 	{
 		if (args[0])
-			printf("%s: %d: %s: not found\n", command_name, ++err_count, args[0]);
+			printf("%s: %d: %s: not found\n", argv[0], ++err_count, args[0]);
 		return;
 	}
 	for (i = 1; i < 10; i++)
@@ -64,7 +65,7 @@ void run_command(char *line, size_t line_len, char *command_name)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execve(args[0], args, NULL) == -1)
+		if (execve(args[0], args, env) == -1)
 			perror("execve");
 		free(line);
 		exit(EXIT_FAILURE);
