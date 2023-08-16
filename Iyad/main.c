@@ -22,7 +22,7 @@ int main(int argc, char *argv[], char *env[])
 	{
 		if (is_atty)
 			printf("($) ");
-		line_len = _getline(&line, &len, stdin);
+		line_len = _getline_(&line, &len, stdin);
 		if (line_len == -1)
 			break;
 		if (strcmp(line, "exit\n") == 0)
