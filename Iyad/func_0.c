@@ -8,7 +8,7 @@
 */
 char *get_full_path(char *command)
 {
-	char *path_env, *token, full_path[250], *temp = NULL, *saveptr;
+	char *path_env, *token, full_path[BUFF_SIZE], *temp = NULL, *saveptr;
 
 	path_env = getenv("PATH");
 	if (path_env == NULL)
@@ -61,13 +61,25 @@ void print_env(char *env[])
 */
 void run_command(char *line, size_t line_len, char *argv[])
 {
-	char *args[10], *full_path = NULL, *saveptr;
-	int i;
+	char *args[10], *full_path = NULL, *saveptr, *error_msg = NULL;
+	int i, exit_status;
 	static int err_count;
 	pid_t pid;
 
 	if (line[line_len - 1] == '\n')
 		line[line_len - 1] = '\0';
+	if ((exit_status = check_exit(line, line_len, &error_msg)) != -1)
+                {
+			if (error_msg)
+			{
+				printf("%s: %d: %s", argv[0], ++err_count, error_msg);
+				free(error_msg);
+				error_msg = NULL;
+				return;
+			}
+			free(line);
+			exit(exit_status);
+		}
 	args[0] = strtok_r(line, " ", &saveptr);
 	if (!args[0])
 		return;
