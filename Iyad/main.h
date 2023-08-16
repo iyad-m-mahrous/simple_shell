@@ -12,7 +12,8 @@
 
 void print_env(char *env[]);
 ssize_t _getline(char **line, size_t *len, FILE *stream);
-ssize_t _getline_(char **line, size_t *len, FILE *stream);
+char *_get_input(char **line, size_t *len, FILE *stream, ssize_t *total_size
+		, int *num_lines);
 void run_command(char *line, size_t line_len, char *argv[]);
 char *get_full_path(char *command);
 
