@@ -63,7 +63,7 @@ void print_env(char *env[])
 void run_command(char *line, size_t line_len, char *argv[], char *env[])
 {
 	char *args[10], *full_path = NULL, *saveptr = NULL;
-	int i, exit_status;
+	int i, exit_status = 0;
 	static int err_count;
 	pid_t pid;
 
@@ -92,15 +92,14 @@ void run_command(char *line, size_t line_len, char *argv[], char *env[])
 		{
 			exit_status = _atoi(args[1]);
 			if (exit_status < 0)
+			{
 				printf("%s: %d: exit: Illegal number: %s\n"
 						, argv[0], ++err_count, args[1]);
-			else
-			{
-				free(line);
-				exit(exit_status);
+				return;
 			}
-			return;
 		}
+		free(line);
+		exit(exit_status);
 	}
 	full_path = get_full_path(args[0]);
 	if (access(args[0], X_OK) == -1 && !full_path)
@@ -113,10 +112,8 @@ void run_command(char *line, size_t line_len, char *argv[], char *env[])
 	{
 		if (execve(full_path ? full_path : args[0], args, NULL) == -1)
 			perror("execve");
-		if (*line)
-			free(line);
-		if (*full_path)
-			free(full_path);
+		free(line);
+		free(full_path);
 		exit(EXIT_FAILURE);
 	}
 	else
