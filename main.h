@@ -10,6 +10,8 @@
 #include <sys/wait.h>
 #include <errno.h>
 
+int env_check(char *args[], char *argv[], char *env[], int *err_count);
+int exit_check(char *args[], char *argv[], char *env[], int *err_count);
 char *_strtok_r(char *str, const char *delim, char **saveptr);
 int _atoi(char *s);
 void print_env(char *env[]);

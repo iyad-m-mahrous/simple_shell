@@ -62,7 +62,7 @@ void print_env(char *env[])
 */
 void run_command(char *line, size_t line_len, char *argv[], char *env[])
 {
-	char *args[10], *full_path = NULL, *saveptr = NULL;
+	char *args[20], *full_path = NULL, *saveptr = NULL;
 	int i, exit_status = 0;
 	static int err_count;
 	pid_t pid;
@@ -72,32 +72,19 @@ void run_command(char *line, size_t line_len, char *argv[], char *env[])
 	args[0] = _strtok_r(line, " ", &saveptr);
 	if (!args[0])
 		return;
-	for (i = 1; i < 10; i++)
+	for (i = 1; i < 20; i++)
 	{
 		args[i] = _strtok_r(NULL, " ", &saveptr);
 		if (args[i] == NULL)
 			break;
 	}
-	if (strcmp(args[0], "env") == 0)
-	{
-		if (args[1])
-			printf("env: %s: No such file or directory\n", args[1]);
-		else
-			print_env(env);
+	if (env_check(args, argv, env, &err_count) != -1)
 		return;
-	}
-	if (strcmp(args[0], "exit") == 0)
+	exit_status = exit_check(args, argv, env, &err_count);
+	if (exit_status != -1)
 	{
-		if (args[1])
-		{
-			exit_status = _atoi(args[1]);
-			if (exit_status < 0)
-			{
-				printf("%s: %d: exit: Illegal number: %s\n"
-						, argv[0], ++err_count, args[1]);
-				return;
-			}
-		}
+		if (exit_status == -99)
+			return;
 		free(line);
 		exit(exit_status);
 	}
