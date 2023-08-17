@@ -17,7 +17,7 @@ char *get_full_path(char *command)
 		exit(EXIT_FAILURE);
 	}
 	temp = strdup(path_env);
-	token = strtok_r(temp, ":", &saveptr);
+	token = _strtok_r(temp, ":", &saveptr);
 	while (token)
 	{
 		strcpy(full_path, token);
@@ -28,7 +28,7 @@ char *get_full_path(char *command)
 			free(temp);
 			return (strdup(full_path));
 		}
-		token = strtok_r(NULL, ":", &saveptr);
+		token = _strtok_r(NULL, ":", &saveptr);
 		full_path[0] = '\0';
 	}
 	free(temp);
@@ -56,10 +56,11 @@ void print_env(char *env[])
  * @line: user input string
  * @line_len: length of the user input string
  * @argv: passing argv from main
+ * @env: enviromental arguments
  *
  * Return: Nothing
 */
-void run_command(char *line, size_t line_len, char *argv[])
+void run_command(char *line, size_t line_len, char *argv[], char *env[])
 {
 	char *args[10], *full_path = NULL, *saveptr, *error_msg = NULL;
 	int i, exit_status;
@@ -68,32 +69,42 @@ void run_command(char *line, size_t line_len, char *argv[])
 
 	if (line[line_len - 1] == '\n')
 		line[line_len - 1] = '\0';
-	if ((exit_status = check_exit(line, line_len, &error_msg)) != -1)
-                {
-			if (error_msg)
-			{
-				printf("%s: %d: %s", argv[0], ++err_count, error_msg);
-				free(error_msg);
-				error_msg = NULL;
-				return;
-			}
-			free(line);
-			exit(exit_status);
+	exit_status = check_exit(line, line_len, &error_msg);
+	if (exit_status != -1)
+	{
+		if (error_msg)
+		{
+			printf("%s: %d: %s", argv[0], ++err_count, error_msg);
+			free(error_msg);
+			error_msg = NULL;
+			return;
 		}
-	args[0] = strtok_r(line, " ", &saveptr);
+		free(line);
+		exit(exit_status);
+	}
+	args[0] = _strtok_r(line, " ", &saveptr);
 	if (!args[0])
 		return;
+	for (i = 1; i < 10; i++)
+	{
+		args[i] = _strtok_r(NULL, " ", &saveptr);
+		if (args[i] == NULL)
+			break;
+	}
+	if (strcmp(args[0], "env") == 0)
+	{
+		if (args[1])
+			printf("env: %s: No such file or directory\n", args[1]);
+		else
+			print_env(env);
+		return;
+
+	}
 	full_path = get_full_path(args[0]);
 	if (access(args[0], X_OK) == -1 && !full_path)
 	{
 		printf("%s: %d: %s: not found\n", argv[0], ++err_count, args[0]);
 		return;
-	}
-	for (i = 1; i < 10; i++)
-	{
-		args[i] = strtok_r(NULL, " ", &saveptr);
-		if (args[i] == NULL)
-			break;
 	}
 	pid = fork();
 	if (pid == 0)

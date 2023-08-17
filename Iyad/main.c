@@ -25,12 +25,7 @@ int main(int argc, char *argv[], char *env[])
 		line_len = _getline(&line, &len, stdin);
 		if (line_len == -1)
 			break;
-		if (strcmp(line, "env\n") == 0)
-		{
-			print_env(env);
-			continue;
-		}
-		run_command(line, line_len, argv);
+		run_command(line, line_len, argv, env);
 	}
 	free(line);
 	if (is_atty)

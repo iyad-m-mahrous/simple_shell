@@ -10,13 +10,14 @@
 #include <sys/wait.h>
 #include <errno.h>
 
+char *_strtok_r(char *str, const char *delim, char **saveptr);
 int check_exit(char *line, ssize_t line_len, char **error_msg);
 int _atoi(char *s);
 void print_env(char *env[]);
 ssize_t _getline(char **line, size_t *len, FILE *stream);
 char *_get_input(char **line, size_t *len, FILE *stream, ssize_t *total_size
 		, int *num_lines);
-void run_command(char *line, size_t line_len, char *argv[]);
+void run_command(char *line, size_t line_len, char *argv[], char *env[]);
 char *get_full_path(char *command);
 
 #endif

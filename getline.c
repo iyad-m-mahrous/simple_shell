@@ -41,7 +41,7 @@ char *_get_input(char **line, size_t *len, FILE *stream, ssize_t *total_size
 		{
 			in_ptr[i] = buff[i];
 			if ((buff[i] == '\n') && (i != (read_len - 1)))
-				num_lines++;
+				(*num_lines)++;
 		}
 	} while (read_len == BUFF_SIZE);
 	in_ptr[(*total_size)] = '\0';
@@ -77,7 +77,7 @@ ssize_t _getline(char **line, size_t *len, FILE *stream)
 	}
 	if (num_lines != 0)
 	{
-		for (i = 0; in_ptr[i] != '\n'; i++)
+		for (i = 0; in_ptr[i] != '\n' && in_ptr[i] != '\0'; i++)
 			;
 		total_size = (i + 1);
 		*len = total_size + 1;
