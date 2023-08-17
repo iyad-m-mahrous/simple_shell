@@ -7,8 +7,6 @@
  * @stream: File stream
  * @total_size: number of input characters including newline
  * @num_lines: number of lines separated by newline
- * @n_ptr: pointer to the full input string (changeable)
- * @n_ptr_main: pointer to the full input string (backing up main address)
  *
  * Return: pointer to the input string
 */

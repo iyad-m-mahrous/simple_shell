@@ -8,7 +8,7 @@
 */
 char *get_full_path(char *command)
 {
-	char *path_env, *token, full_path[BUFF_SIZE], *temp = NULL, *saveptr;
+	char *path_env, *token, full_path[BUFF_SIZE], *temp = NULL, *saveptr = NULL;
 
 	path_env = getenv("PATH");
 	if (path_env == NULL)
@@ -62,26 +62,13 @@ void print_env(char *env[])
 */
 void run_command(char *line, size_t line_len, char *argv[], char *env[])
 {
-	char *args[10], *full_path = NULL, *saveptr, *error_msg = NULL;
+	char *args[10], *full_path = NULL, *saveptr = NULL;
 	int i, exit_status;
 	static int err_count;
 	pid_t pid;
 
 	if (line[line_len - 1] == '\n')
 		line[line_len - 1] = '\0';
-	exit_status = check_exit(line, line_len, &error_msg);
-	if (exit_status != -1)
-	{
-		if (error_msg)
-		{
-			printf("%s: %d: %s", argv[0], ++err_count, error_msg);
-			free(error_msg);
-			error_msg = NULL;
-			return;
-		}
-		free(line);
-		exit(exit_status);
-	}
 	args[0] = _strtok_r(line, " ", &saveptr);
 	if (!args[0])
 		return;
@@ -98,7 +85,22 @@ void run_command(char *line, size_t line_len, char *argv[], char *env[])
 		else
 			print_env(env);
 		return;
-
+	}
+	if (strcmp(args[0], "exit") == 0)
+	{
+		if (args[1])
+		{
+			exit_status = _atoi(args[1]);
+			if (exit_status < 0)
+				printf("%s: %d: exit: Illegal number: %s\n"
+						, argv[0], ++err_count, args[1]);
+			else
+			{
+				free(line);
+				exit(exit_status);
+			}
+			return;
+		}
 	}
 	full_path = get_full_path(args[0]);
 	if (access(args[0], X_OK) == -1 && !full_path)

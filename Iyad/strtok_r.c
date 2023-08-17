@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * _strtok - gets the a string token from lon string
+ * _strtok_r - gets the a string token from lon string
  * @str: pointer to the tring
  * @delim: separator delimeter
  * @saveptr: pointer to next token
@@ -13,13 +13,7 @@ char *_strtok_r(char *str, const char *delim, char **saveptr)
 {
 	int i = 0;
 	static char *tok_ptr;
-	static void *init;
 
-	if (init != saveptr)
-	{
-		init = saveptr;
-		*saveptr = NULL;
-	}
 
 	if (!str && !(*saveptr))
 		return (NULL);
