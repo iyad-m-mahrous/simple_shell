@@ -13,7 +13,7 @@ char *_strtok_r(char *str, const char *delim, char **saveptr)
 {
 	int i = 0;
 	static char *tok_ptr;
-	static void * init;
+	static void *init;
 
 	if (init != saveptr)
 	{

@@ -14,7 +14,7 @@ int check_exit(char *line, ssize_t line_len, char **error_msg)
 	char *args[10], *saveptr;
 	int i, exit_status;
 	char local_err[1000];
-	char * line_dup = NULL;
+	char *line_dup = NULL;
 
 	if (line)
 		line_dup = strdup(line);
