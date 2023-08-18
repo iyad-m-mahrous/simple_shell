@@ -5,11 +5,10 @@
  * @line: user input string
  * @line_len: length of the user input string
  * @argv: passing argv from main
- * @env: enviromental arguments
  *
  * Return: Nothing
 */
-void run_command(char *line, size_t line_len, char *argv[], char *env[])
+void run_command(char *line, size_t line_len, char *argv[])
 {
 	char *args[20], *full_path = NULL, *saveptr = NULL;
 	int i;
@@ -27,9 +26,9 @@ void run_command(char *line, size_t line_len, char *argv[], char *env[])
 		if (args[i] == NULL)
 			break;
 	}
-	if (env_check(args, argv, env, &err_count))
+	if (env_check(args, argv, &err_count))
 		return;
-	if (exit_check(args, argv, env, &err_count, line))
+	if (exit_check(args, argv, &err_count, line))
 		return;
 	full_path = get_full_path(args[0]);
 	if (access(args[0], X_OK) == -1 && !full_path)

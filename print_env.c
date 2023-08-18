@@ -2,15 +2,13 @@
 
 /**
  * print_env - print the system environment variables
- * @env: Array of enviromental variables data
  *
  * Return: nothing
 */
-void print_env(char *env[])
+void print_env(void)
 {
-	while (*env)
-	{
-		printf("%s\n", *env);
-		env++;
-	}
+	int i = 0;
+
+	while (*(environ + i))
+		printf("%s\n", *(environ + i++));
 }
