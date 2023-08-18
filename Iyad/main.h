@@ -12,6 +12,7 @@
 
 extern char **environ;
 
+int env_var_check(char *varname);
 int env_check(char *args[], char *argv[], int *err_count);
 int exit_check(char *args[], char *argv[]
 		, int *err_count, char *line);

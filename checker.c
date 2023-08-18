@@ -26,6 +26,27 @@ int env_check(char *args[], char *argv[], int *err_count)
 }
 
 /**
+ * env_var_check - check if environmental variable exists
+ * @varname: the variable name
+ *
+ *Return: index of the variable else -1
+ */
+int env_var_check(char *varname)
+{
+	int i = 0;
+	int length = 0;
+
+	length = strlen(varname);
+	while (!(strncmp(environ[i], varname, length) == 0 &&
+			       environ[i] && environ[i][length] == '='))
+		i++;
+	if (environ[i])
+		return (i);
+	else
+		return (-1);
+}
+
+/**
  * exit_check - Convert a string to an integer.
  * @args: input tokens
  * @argv: main argv
