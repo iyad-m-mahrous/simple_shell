@@ -37,9 +37,13 @@ int env_var_check(char *varname)
 	int length = 0;
 
 	length = strlen(varname);
-	while (!(strncmp(environ[i], varname, length) == 0 &&
-			       environ[i] && environ[i][length] == '='))
+	while (environ[i])
+	{
+		if (strncmp(environ[i], varname, length) == 0 &&
+			       environ[i][length] == '=')
+			break;
 		i++;
+	}
 	if (environ[i])
 		return (i);
 	else

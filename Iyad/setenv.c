@@ -23,6 +23,7 @@ int _setenv(char *args[], char *argv[]
 	{
 		if (args[1] && args[2])
 		{
+			printf("HEEEERRRRE");
 			i = env_var_check(args[1]);
 			if (i == -1)
 			{
@@ -32,7 +33,6 @@ int _setenv(char *args[], char *argv[]
 			}
 			else
 			{
-				free(environ[i]);
 				if (env_modify(i, args[1], args[2]))
 					return (1);
 				return (0);
@@ -85,6 +85,7 @@ int env_add(char *varname, char *varvalue)
 	}
 	new_environ[i] = new_var;
 	new_environ[i + 1] = NULL;
+	environ = new_environ;
 
 	return (1);
 
