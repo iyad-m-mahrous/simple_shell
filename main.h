@@ -12,6 +12,9 @@
 
 extern char **environ;
 
+int _setenv(char *args[], char *argv[], int *err_count, char *line);
+int env_add(char *varname, char *varvalue);
+int env_modify(int index, char *varname, char *varvalue);
 int env_var_check(char *varname);
 int env_check(char *args[], char *argv[], int *err_count);
 int exit_check(char *args[], char *argv[]

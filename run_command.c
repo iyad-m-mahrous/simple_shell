@@ -30,6 +30,8 @@ void run_command(char *line, size_t line_len, char *argv[])
 		return;
 	if (exit_check(args, argv, &err_count, line))
 		return;
+	if (_setenv(args, argv, &err_count, line))
+		return;
 	full_path = get_full_path(args[0]);
 	if (access(args[0], X_OK) == -1 && !full_path)
 	{

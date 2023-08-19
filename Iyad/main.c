@@ -24,7 +24,8 @@ int main(int argc, char *argv[])
 		line_len = _getline(&line, &len, stdin);
 		if (line_len == -1)
 			break;
-		run_command(line, line_len, argv);
+		if ((*line != '\n'))
+			run_command(line, line_len, argv);
 	}
 	free(line);
 	if (is_atty)
