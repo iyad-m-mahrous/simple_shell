@@ -23,25 +23,24 @@ int _setenv(char *args[], char *argv[]
 	{
 		if (args[1] && args[2])
 		{
-			printf("HEEEERRRRE");
 			i = env_var_check(args[1]);
 			if (i == -1)
 			{
-				if (env_add(args[1], args[2]))
-					return (1);
-				return (0);
+				if (!env_add(args[1], args[2]))
+					fprintf(stderr, "setenv: Failed to add VARIABLE\n");
+				return (1);
 			}
 			else
 			{
-				if (env_modify(i, args[1], args[2]))
-					return (1);
-				return (0);
+				if (!env_modify(i, args[1], args[2]))
+					fprintf(stderr, "setenv: Failed to update VARIABLE\n");
+				return (1);
 			}
 		}
 		else
 		{
 			fprintf(stderr, "Usage: setenv VARIABLE VALUE\n");
-			return (0);
+			return (1);
 		}
 	}
 	return (0);
