@@ -74,7 +74,10 @@ int env_del(int index, char *env[])
 		new_environ[i] = environ[j];
 	}
 	if (((unsigned long)env >> 24) != ((unsigned long)environ[index] >> 24))
+	{
 		free(environ[index]);
+		environ[index] = NULL;
+	}
 	if (env != environ)
 		free(environ);
 	environ = new_environ;
