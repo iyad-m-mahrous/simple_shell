@@ -5,12 +5,13 @@
  *         or modify an existing one.
  * @args: input tokens
  * @argv: main argv
+ * @env: env
  * @err_count: global error count ptr
  * @line: pointer to the buffer to be freed if exit
  *
  * Return: 1 if ok else 0
  */
-int _setenv(char *args[], char *argv[]
+int _setenv(char *args[], char *argv[], char *env[]
 		, int *err_count, char *line)
 {
 	int i = 0;
@@ -26,13 +27,13 @@ int _setenv(char *args[], char *argv[]
 			i = env_var_check(args[1]);
 			if (i == -1)
 			{
-				if (!env_add(args[1], args[2]))
+				if (!env_add(args[1], args[2], env))
 					fprintf(stderr, "setenv: Failed to add VARIABLE\n");
 				return (1);
 			}
 			else
 			{
-				if (!env_modify(i, args[1], args[2]))
+				if (!env_modify(i, args[1], args[2], env))
 					fprintf(stderr, "setenv: Failed to update VARIABLE\n");
 				return (1);
 			}
@@ -50,11 +51,12 @@ int _setenv(char *args[], char *argv[]
  * env_add - add new variable to env.
  * @varname: variable name
  * @varvalue: variable value
+ * @env: env
  *
  * Return: 1 if ok else 0
  */
 
-int env_add(char *varname, char *varvalue)
+int env_add(char *varname, char *varvalue, char *env[])
 {
 	char **new_environ = NULL, *new_var = NULL;
 	int env_size = 0, i = 0, var_size;
@@ -68,7 +70,6 @@ int env_add(char *varname, char *varvalue)
 		perror("malloc");
 		return (0);
 	}
-
 	new_environ = (char **) malloc(sizeof(*new_environ) * (env_size + 2));
 	if (!new_environ)
 	{
@@ -84,6 +85,8 @@ int env_add(char *varname, char *varvalue)
 	}
 	new_environ[i] = new_var;
 	new_environ[i + 1] = NULL;
+	if (env != environ)
+		free(environ);
 	environ = new_environ;
 
 	return (1);
@@ -95,10 +98,11 @@ int env_add(char *varname, char *varvalue)
  * @index: location of thevariable
  * @varname: variable name
  * @varvalue: variable value
+ * @env: env array
  *
  * Return: 1 if ok else 0
  */
-int env_modify(int index, char *varname, char *varvalue)
+int env_modify(int index, char *varname, char *varvalue, char *env[])
 {
 	char *new_var = NULL;
 	int var_size;
@@ -111,6 +115,8 @@ int env_modify(int index, char *varname, char *varvalue)
 		return (0);
 	}
 	snprintf(new_var, var_size, "%s=%s", varname, varvalue);
+	if (((unsigned long)env >> 24) != ((unsigned long)environ[index] >> 24))
+		free(environ[index]);
 	environ[index] = new_var;
 	return (1);
 }

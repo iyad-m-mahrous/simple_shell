@@ -4,11 +4,12 @@
  * main - Simple Shell Task
  * @argc: No. of arguments
  * @argv: passed arguments
+ * @env: env array
  *
  * Return: -1 if error else 0
 */
 
-int main(int argc, char *argv[])
+int main(int argc, char *argv[], char *env[])
 {
 	char *line = NULL;
 	int is_atty;
@@ -25,9 +26,10 @@ int main(int argc, char *argv[])
 		if (line_len == -1)
 			break;
 		if ((*line != '\n'))
-			run_command(line, line_len, argv);
+			run_command(line, line_len, argv, env);
 	}
 	free(line);
+	env_free(env);
 	if (is_atty)
 		printf("\n");
 	return (0);

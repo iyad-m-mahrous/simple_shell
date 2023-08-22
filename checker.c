@@ -54,12 +54,13 @@ int env_var_check(char *varname)
  * exit_check - Convert a string to an integer.
  * @args: input tokens
  * @argv: main argv
+ * @env: env variable
  * @err_count: global error count ptr
  * @line: pointer to the buffer to be freed if exit
  *
  * Return: 1 if ok else 0
  */
-int exit_check(char *args[], char *argv[]
+int exit_check(char *args[], char *argv[], char *env[]
 		, int *err_count, char *line)
 {
 	int exit_status = 0;
@@ -75,12 +76,9 @@ int exit_check(char *args[], char *argv[]
 						, argv[0], ++(*err_count), args[1]);
 				return (1);
 			}
-			else
-			{
-				free(line);
-			}
 		}
-
+		env_free(env);
+		free(line);
 		exit(exit_status);
 	}
 	return (0);
