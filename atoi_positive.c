@@ -2,7 +2,7 @@
 
 /**
  * _atoi - Converts a string to an integers.
- * @s: The pointer to convert
+ * @s: The pointers to convert
  *
  * Return: An integer
  */
