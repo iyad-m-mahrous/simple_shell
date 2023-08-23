@@ -2,7 +2,7 @@
 
 /**
  * main - Simpple Shell Tassk
- * @argc: No. of arguments
+ * @argc: No. of argumentss
  * @argv: passed arguments
  * @env: env array
  *
