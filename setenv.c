@@ -94,7 +94,7 @@ int env_add(char *varname, char *varvalue, char *env[])
 }
 
 /**
- * env_modify - updates environ variable at inddex.
+ * Env_modify - Updates environ variable at inddex.
  * @index: location of thevariable
  * @varname: variable name
  * @varvalue: variable value
