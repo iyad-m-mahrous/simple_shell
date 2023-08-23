@@ -48,7 +48,7 @@ int _setenv(char *args[], char *argv[], char *env[]
 }
 
 /**
- * env_add - adds new variable to env.
+ * Env_Add - Adds new variable to env.
  * @varname: variable name
  * @varvalue: variable value
  * @env: env
