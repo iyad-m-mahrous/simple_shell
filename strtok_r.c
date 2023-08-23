@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * _Strtok_r - Gets the striing tokken from lon sttring
+ * _Strtok_r - Gets the striing token from lon string
  * @str: pointer to the string
  * @delim: separator delimeter
  * @saveptr: pointer to next token
