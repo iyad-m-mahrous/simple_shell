@@ -13,10 +13,11 @@
 char *_get_input(char **line, size_t *len, FILE *stream, ssize_t *total_size
 		, int *num_lines)
 {
-	ssize_t read_len = 0, i = 0;
+	ssize_t read_len = 0, i = 0, prev_total_size = 0;
 	char *in_ptr = NULL, buff[BUFF_SIZE];
 
 	do {
+		prev_total_size = *total_size;
 		read_len = read(fileno(stream), buff, BUFF_SIZE);
 		if (read_len == 0)
 			return (NULL);
@@ -37,10 +38,11 @@ char *_get_input(char **line, size_t *len, FILE *stream, ssize_t *total_size
 		*len = ((*total_size) + 1);
 		for (i = 0; i < read_len; i++)
 		{
-			in_ptr[i] = buff[i];
+			in_ptr[prev_total_size + i] = buff[i];
 			if ((buff[i] == '\n') && (i != (read_len - 1)))
 				(*num_lines)++;
 		}
+		prev_total_size = *total_size;
 	} while (read_len == BUFF_SIZE);
 	in_ptr[(*total_size)] = '\0';
 
