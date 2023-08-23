@@ -1,8 +1,8 @@
 #include "main.h"
 
 /**
- * _setenv - Initializes a new envvironment variiable,
- *         or modifies an existing one.
+ * _setenv - Initialize a new environment variable,
+ *         or modify an existing one.
  * @args: input tokens
  * @argv: main argv
  * @env: env
@@ -48,7 +48,7 @@ int _setenv(char *args[], char *argv[], char *env[]
 }
 
 /**
- * Env_Add - Adds new variable to env.
+ * env_add - add new variable to env.
  * @varname: variable name
  * @varvalue: variable value
  * @env: env
@@ -94,7 +94,7 @@ int env_add(char *varname, char *varvalue, char *env[])
 }
 
 /**
- * Env_Modify - Updates environ variables at inddex.
+ * env_modify - update environ variable at index.
  * @index: location of thevariable
  * @varname: variable name
  * @varvalue: variable value
@@ -120,3 +120,4 @@ int env_modify(int index, char *varname, char *varvalue, char *env[])
 	environ[index] = new_var;
 	return (1);
 }
+

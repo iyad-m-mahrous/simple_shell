@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * _unsetenv - Removes an environmment variable.
+ * _unsetenv - Remove an environment variable.
  * @args: input tokens
  * @argv: main argv
  * @env: env
@@ -46,7 +46,7 @@ int _unsetenv(char *args[], char *argv[], char *env[]
 }
 
 /**
- * env_del - removes variables at index.
+ * env_del - remove variable at index.
  * @index: location of the variable
  * @env: env
  *

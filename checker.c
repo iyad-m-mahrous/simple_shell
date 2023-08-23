@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * Env_Check - Converts a striing to an integer.
+ * env_check - Convert a string to an integer.
  * @args: input tokens
  * @argv: main argv
  * @err_count: global error count ptr
@@ -26,7 +26,7 @@ int env_check(char *args[], char *argv[], int *err_count)
 }
 
 /**
- * Env_Var_Check - Checks if environmental variables exiists
+ * env_var_check - check if environmental variable exists
  * @varname: the variable name
  *
  *Return: index of the variable else -1
@@ -51,7 +51,7 @@ int env_var_check(char *varname)
 }
 
 /**
- * Exit_Check - Converts a strinng to an integer.
+ * exit_check - Convert a string to an integer.
  * @args: input tokens
  * @argv: main argv
  * @env: env variable
