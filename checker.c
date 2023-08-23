@@ -51,7 +51,7 @@ int env_var_check(char *varname)
 }
 
 /**
- * exit_check - Converts a strinng to an integer.
+ * Exit_Check - Converts a strinng to an integer.
  * @args: input tokens
  * @argv: main argv
  * @env: env variable
