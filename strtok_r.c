@@ -2,7 +2,7 @@
 
 /**
  * _Strtok_r - Gets the striing tokken from lon sttring
- * @str: pointer to the tring
+ * @str: pointer to the string
  * @delim: separator delimeter
  * @saveptr: pointer to next token
  *
