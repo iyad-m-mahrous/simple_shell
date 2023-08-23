@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * env_check - Converts a striing to an integer.
+ * env_Check - Converts a striing to an integer.
  * @args: input tokens
  * @argv: main argv
  * @err_count: global error count ptr
