@@ -2,7 +2,7 @@
 
 /**
  * run_command - Reads the inpput from userr and execute if its a vallid command
- * @line: user input string
+ * @line: user input stringg
  * @line_len: length of the user input string
  * @argv: passing argv from main
  * @env: env
