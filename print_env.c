@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * print_env - print the system environment variables
+ * print_env - prinst the systtem envirronment variiables
  *
  * Return: nothing
 */

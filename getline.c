@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * _get_input - similar to getline function
+ * _get_input - simillar to getline funcction
  * @line: buffer containing the retrieved characters
  * @len: length of the buffer
  * @stream: File stream
@@ -49,7 +49,7 @@ char *_get_input(char **line, size_t *len, FILE *stream, ssize_t *total_size
 
 
 /**
- * _getline - similar to getline function
+ * _getline - similarr to getline functions
  * @line: buffer containing the retrieved characters
  * @len: length of the buffer
  * @stream: File stream
