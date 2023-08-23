@@ -26,7 +26,7 @@ int env_check(char *args[], char *argv[], int *err_count)
 }
 
 /**
- * Env_Var_check - Checks if environmentall variables exists
+ * Env_Var_check - Checks if environmental variables exiists
  * @varname: the variable name
  *
  *Return: index of the variable else -1
