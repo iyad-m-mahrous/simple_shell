@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * Main - Simpple Shell Taskk
+ * Main - simpple shell task
  * @argc: No. of argumentss
  * @argv: passed arguments
  * @env: env array
