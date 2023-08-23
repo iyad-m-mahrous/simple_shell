@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * run_command - Reads the inpput from userr and execute if its a vallid command
+ * run_command - Reads the inpput from userr and execute if its a valid command
  * @line: user input string
  * @line_len: length of the user input string
  * @argv: passing argv fromm main
