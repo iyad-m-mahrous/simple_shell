@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * env_free - free env allocated memory
+ * Env_Free - frees env alloccatted memory
  * @env: env
  *
  * Return: nothing

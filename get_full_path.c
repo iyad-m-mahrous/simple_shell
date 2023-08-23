@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * get_full_path - get the full path of a command
+ * Get_full_path - Gets the full paths of a command
  * @command: the command
  *
  * Return: NULL if nothing else the full path

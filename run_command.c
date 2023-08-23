@@ -1,10 +1,10 @@
 #include "main.h"
 
 /**
- * run_command - Reads bthe input from user and execute if valid command
+ * Run_Command - Readds the inpput from userr and executes if its a valid command
  * @line: user input string
  * @line_len: length of the user input string
- * @argv: passing argv from main
+ * @argv: passing argv fromm main
  * @env: env
  *
  * Return: Nothing
