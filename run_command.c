@@ -41,6 +41,7 @@ void run_command(char *line, size_t line_len, char *argv[], char *env[])
 	pid = fork();
 	if (pid == 0)
 	{
+		errno = 0;
 		if (execve(full_path ? full_path : args[0], args, env) == -1)
 			perror("execve");
 		free(line);
