@@ -33,5 +33,5 @@ int main(int argc, char *argv[], char *env[])
 	env_free(env);
 	if (is_atty)
 		printf("\n");
-	return (errno);
+	return (0);
 }
