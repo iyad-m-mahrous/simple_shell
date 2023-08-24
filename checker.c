@@ -77,7 +77,7 @@ int exit_check(char *args[], char *argv[], char *env[]
 				return (1);
 			}
 		}
-		if (strcmp(args[0] + (strlen(args[0]) - 5), "/exit") == 0)
+		if ((strcmp(args[0] + (strlen(args[0]) - 5), "/exit") == 0) && !args[1])
 			exit_status = 2;
 		env_free(env);
 		free(line);
