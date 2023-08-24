@@ -12,7 +12,7 @@
 void run_command(char *line, size_t line_len, char *argv[], char *env[])
 {
 	char *args[BUFF_SIZE], *full_path = NULL, *saveptr = NULL;
-	int i;
+	int i, status;
 	static int err_count;
 	pid_t pid;
 
@@ -35,7 +35,8 @@ void run_command(char *line, size_t line_len, char *argv[], char *env[])
 	full_path = get_full_path(args[0]);
 	if (access(args[0], X_OK) == -1 && !full_path)
 	{
-		printf("%s: %d: %s: not found\n", argv[0], ++err_count, args[0]);
+		fprintf(stderr, "%s: %d: %s: not found\n", argv[0], ++err_count, args[0]);
+		errno = 127;
 		return;
 	}
 	pid = fork();
@@ -43,12 +44,11 @@ void run_command(char *line, size_t line_len, char *argv[], char *env[])
 	{
 		if (execve(full_path ? full_path : args[0], args, env) == -1)
 			perror("execve");
-		free(line);
-		free(full_path);
-		env_free(env);
+		free(line), free(full_path), env_free(env);
 		exit(EXIT_FAILURE);
 	}
 	else
-		wait(NULL);
+		waitpid(pid, &status, 0);
+	WEXITSTATUS(status) == 2 ? (errno = 2) : (errno = 0);
 	free(full_path);
 }
