@@ -16,7 +16,6 @@ int main(int argc, char *argv[], char *env[])
 	size_t len = 0;
 	ssize_t line_len = 0;
 
-	errno = 0;
 	is_atty = isatty(0);
 	(void) argc;
 	while (1)

@@ -32,7 +32,6 @@ void run_command(char *line, size_t line_len, char *argv[], char *env[])
 		       _setenv(args, argv, env, &err_count, line) ||
 		       _unsetenv(args, argv, env, &err_count, line))
 		return;
-	errno = 0;
 	full_path = get_full_path(args[0]);
 	if (access(args[0], X_OK) == -1 && !full_path)
 	{
