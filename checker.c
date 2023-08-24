@@ -79,7 +79,7 @@ int exit_check(char *args[], char *argv[], char *env[]
 		}
 		env_free(env);
 		free(line);
-		exit(errno);
+		exit(exit_status);
 	}
 	return (0);
 }

@@ -25,6 +25,7 @@ int main(int argc, char *argv[], char *env[])
 		line_len = _getline(&line, &len, stdin);
 		if (line_len == -1)
 			break;
+		errno = 0;
 		if ((*line != '\n'))
 			run_command(line, line_len, argv, env);
 	}
