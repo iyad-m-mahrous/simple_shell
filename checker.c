@@ -77,6 +77,8 @@ int exit_check(char *args[], char *argv[], char *env[]
 				return (1);
 			}
 		}
+		else
+			exit_status = errno;
 		env_free(env);
 		free(line);
 		exit(exit_status);

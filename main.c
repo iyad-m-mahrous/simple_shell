@@ -16,6 +16,7 @@ int main(int argc, char *argv[], char *env[])
 	size_t len = 0;
 	ssize_t line_len = 0;
 
+	errno = 0;
 	is_atty = isatty(0);
 	(void) argc;
 	while (1)
@@ -25,7 +26,6 @@ int main(int argc, char *argv[], char *env[])
 		line_len = _getline(&line, &len, stdin);
 		if (line_len == -1)
 			break;
-		errno = 0;
 		if ((*line != '\n'))
 			run_command(line, line_len, argv, env);
 	}
@@ -33,5 +33,5 @@ int main(int argc, char *argv[], char *env[])
 	env_free(env);
 	if (is_atty)
 		printf("\n");
-	return (0);
+	return (errno);
 }
