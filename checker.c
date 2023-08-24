@@ -63,8 +63,9 @@ int env_var_check(char *varname)
 int exit_check(char *args[], char *argv[], char *env[]
 		, int *err_count, char *line)
 {
-	int exit_status = 0;
+	int exit_status = errno;
 
+	errno = 0;
 	if (strcmp(args[0], "exit") == 0)
 	{
 		if (args[1])
