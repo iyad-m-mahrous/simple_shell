@@ -36,6 +36,7 @@ void run_command(char *line, size_t line_len, char *argv[], char *env[])
 	if (access(args[0], X_OK) == -1 && !full_path)
 	{
 		fprintf(stderr, "%s: %d: %s: not found\n", argv[0], ++err_count, args[0]);
+		errno = 127;
 		return;
 	}
 	pid = fork();
