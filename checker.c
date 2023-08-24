@@ -65,7 +65,7 @@ int exit_check(char *args[], char *argv[], char *env[]
 {
 	int exit_status = 0;
 
-	if (strcmp(args[0], "exit") == 0 || strcmp(args[0] + (strlen(args[0]) - 5), "/exit") == 0)
+	if (strcmp(args[0], "exit") == 0)
 	{
 		if (args[1])
 		{
