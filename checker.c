@@ -72,8 +72,9 @@ int exit_check(char *args[], char *argv[], char *env[]
 			exit_status = _atoi(args[1]);
 			if (exit_status < 0)
 			{
-				printf("%s: %d: exit: Illegal number: %s\n"
+				fprintf(stderr, "%s: %d: exit: Illegal number: %s\n"
 						, argv[0], ++(*err_count), args[1]);
+				errno = 2;
 				return (1);
 			}
 		}
