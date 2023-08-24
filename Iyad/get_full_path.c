@@ -13,8 +13,7 @@ char *get_full_path(char *command)
 	path_env = getenv("PATH");
 	if (path_env == NULL)
 	{
-		perror("getenv");
-		exit(EXIT_FAILURE);
+		return (NULL);
 	}
 	temp = strdup(path_env);
 	token = _strtok_r(temp, ":", &saveptr);

@@ -11,7 +11,7 @@ char *get_full_path(char *command)
 	char *path_env, *token, full_path[BUFF_SIZE], *temp = NULL, *saveptr = NULL;
 
 	path_env = getenv("PATH");
-	if (path_env == NULL)
+	if (path_env == NULL || (*path_env) == 0)
 	{
 		return (NULL);
 	}
