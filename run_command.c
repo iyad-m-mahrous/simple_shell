@@ -12,7 +12,7 @@
 void run_command(char *line, size_t line_len, char *argv[], char *env[])
 {
 	char *args[BUFF_SIZE], *full_path = NULL, *saveptr = NULL;
-	int i;
+	int i, status;
 	static int err_count;
 	pid_t pid;
 
@@ -48,6 +48,7 @@ void run_command(char *line, size_t line_len, char *argv[], char *env[])
 		exit(EXIT_FAILURE);
 	}
 	else
-		wait(NULL);
+		waitpid(pid, &status, 0);
+	WEXITSTATUS(status) == 2 ? (errno = 2) : (errno = 0);
 	free(full_path);
 }

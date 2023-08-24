@@ -78,7 +78,10 @@ int exit_check(char *args[], char *argv[], char *env[]
 			}
 		}
 		else
-			(errno == 127) ? (exit_status = 127) : (exit_status = 0);
+		{
+			if (errno == 127 || errno == 2)
+				exit_status = errno;
+		}
 		env_free(env);
 		free(line);
 		exit(exit_status);

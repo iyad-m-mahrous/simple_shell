@@ -32,6 +32,7 @@ int main(int argc, char *argv[], char *env[])
 	env_free(env);
 	if (is_atty)
 		printf("\n");
-	(errno == 127) ? (errno = 127) : (errno = 0);
-	return (errno);
+	if (errno == 127 || errno == 2)
+		return (errno);
+	return (0);
 }
