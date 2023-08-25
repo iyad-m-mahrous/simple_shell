@@ -38,6 +38,8 @@ char *_get_input(char **line, size_t *len, FILE *stream, ssize_t *total_size
 		*len = ((*total_size) + 1);
 		for (i = 0; i < read_len; i++)
 		{
+			if (buff[i] == ';')
+				buff[i] = '\n';
 			in_ptr[prev_total_size + i] = buff[i];
 			if ((buff[i] == '\n') && (i != (read_len - 1)))
 				(*num_lines)++;
